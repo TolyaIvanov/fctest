@@ -1,8 +1,41 @@
+// files
+@import "header";
+@import "homePage";
+
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    font-family: 'Maven Pro', 'Nunito', sans-serif;
+    min-width: 450px;
+
+    #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+input, button {
+    user-select: none;
+}
