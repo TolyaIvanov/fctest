@@ -3,7 +3,8 @@ import React, {memo} from 'react';
 const Articles = memo((props) => {
     return (
         <div className={'articles'}>
-            articles
+            <p className={'section-title'}>Статьи</p>
+            {props.children}
         </div>
     );
 });

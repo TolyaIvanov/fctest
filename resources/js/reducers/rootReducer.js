@@ -1,5 +1,9 @@
 import {combineReducers} from "redux";
 
-export default combineReducers({
+import {
+    dataRequest
+} from "./homePage/dataRequest";
 
+export default combineReducers({
+    homePageData: dataRequest
 });

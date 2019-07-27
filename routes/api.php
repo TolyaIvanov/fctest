@@ -13,8 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group(['prefix' => 'get/'], function () {
+    Route::group(['prefix' => 'all/'], function () {
+        Route::get('users', 'api\UsersController@all');
+        Route::get('comments', 'api\CommentsController@all');
+        Route::get('articles', 'api\ArticlesController@all');
 
+    });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::group(['prefix' => 'top/'], function () {
+        Route::get('users', 'api\UsersController@top');
+        Route::get('comments', 'api\CommentsController@last');
+        Route::get('articles', 'api\ArticlesController@top');
+    });
 });

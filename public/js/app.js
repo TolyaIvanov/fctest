@@ -31436,7 +31436,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var HomePage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
 });
 
 var Routes =
@@ -31509,6 +31509,29 @@ var Header = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function (props)
   }, "home")));
 });
 /* harmony default export */ __webpack_exports__["default"] = (Header);
+
+/***/ }),
+
+/***/ "./resources/js/constants/defaultConstants.js":
+/*!****************************************************!*\
+  !*** ./resources/js/constants/defaultConstants.js ***!
+  \****************************************************/
+/*! exports provided: BASE_PATH, GET_TOP_ARTICLES, GET_TOP_AUTHORS, GET_TOP_COMMENTS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BASE_PATH", function() { return BASE_PATH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_ARTICLES", function() { return GET_TOP_ARTICLES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_AUTHORS", function() { return GET_TOP_AUTHORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_COMMENTS", function() { return GET_TOP_COMMENTS; });
+//base sittings
+var BASE_PATH = 'http://localhost:8000/api/'; // -- homePage --
+// get main info
+
+var GET_TOP_ARTICLES = 'GET_TOP_ARTICLES';
+var GET_TOP_AUTHORS = 'GET_TOP_AUTHORS';
+var GET_TOP_COMMENTS = 'GET_TOP_COMMENTS';
 
 /***/ }),
 
@@ -31610,6 +31633,53 @@ history.push = function (pathname) {
 
 /***/ }),
 
+/***/ "./resources/js/reducers/homePage/dataRequest.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/reducers/homePage/dataRequest.js ***!
+  \*******************************************************/
+/*! exports provided: dataRequest */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataRequest", function() { return dataRequest; });
+/* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+
+var initialState = {
+  topAuthors: [],
+  topComments: [],
+  topArticles: []
+};
+var dataRequest = function dataRequest() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      data = _ref.data;
+
+  switch (type) {
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_AUTHORS"]:
+      return {
+        topAuthors: data
+      };
+
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_COMMENTS"]:
+      return {
+        lastComments: data
+      };
+
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_ARTICLES"]:
+      return {
+        topArticles: data
+      };
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/reducers/rootReducer.js":
 /*!**********************************************!*\
   !*** ./resources/js/reducers/rootReducer.js ***!
@@ -31620,8 +31690,12 @@ history.push = function (pathname) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homePage/dataRequest */ "./resources/js/reducers/homePage/dataRequest.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({}));
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  homePageData: _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__["dataRequest"]
+}));
 
 /***/ }),
 
