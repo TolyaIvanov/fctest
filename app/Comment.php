@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'name', 'age',
+        'body'
     ];
 
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 
+    public function authors()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

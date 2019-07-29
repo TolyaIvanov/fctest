@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Article;
+use App\Comment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+//        factory(App\User::class, 5)->create()->each(function ($user){
+//            $user->articles()->saveMany(factory(App\Article::class, 1)->make());
+//            $user->comments()->saveMany(factory(App\Comment::class, 2)->make());
+//        });
+        factory(App\User::class, 1000)->create();
+        factory(App\Article::class, 100)->create();
+        factory(App\Comment::class, 1500)->create();
+
+//        for ($i = 0; $i < 10; $i++) {
+//            factory(App\User::class, 10)->create()->each(function ($user) use ($i) {
+//                $user->articles()->saveMany(factory(App\Article::class, 2)->make());
+//                $user->comments()->saveMany(factory(App\Comment::class, 4)->make());
+//            });
+//        }
     }
 }
