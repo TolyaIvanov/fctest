@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
 import Articles from "../../../components/homePage/rightColumn/Articles";
 
 import {
@@ -23,13 +24,14 @@ class ArticlesContainer extends Component {
 
     renderArticleList = (articles) => {
         return articles.map(article => (
-                <div
+                <Link
+                    to={`/article/${article.id}`}
                     key={article.id}
                     className={'article-small'}
                 >
-                    <p className={'title'}>{article.title} - {article.author}</p>
-                    <p className={'text'}>{article.text.split(' ').slice(0, 10).join(' ')}...</p>
-                </div>
+                    <p className={'title'}>{article.title} - <Link className={'author'} to={`/author/${article.author.id}`}>{article.author.name}({article.author.age} years)</Link></p>
+                    <p className={'text'}>{article.body.split(' ').slice(0, 10).join(' ')}...</p>
+                </Link>
             )
         );
     };

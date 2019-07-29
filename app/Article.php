@@ -10,6 +10,8 @@ class Article extends Model
         'title', 'body',
     ];
 
+    protected $with = ['comments'];
+
     public function author()
     {
         return $this->belongsTo(User::class);

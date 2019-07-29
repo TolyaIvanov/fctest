@@ -17,4 +17,15 @@ class UsersController extends Controller
 
         return response(['users' => $users], 200);
     }
+
+    public function get(Request $request, $id)
+    {
+        $author = User::find($id)   ;
+
+        if ($author) {
+            return response($author, 200);
+        } else {
+            return response('error', 422);
+        }
+    }
 }

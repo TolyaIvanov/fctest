@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
 import Authors from "../../../components/homePage/rightColumn/Authors";
 
 import {
@@ -23,12 +24,13 @@ class AuthorsContainer extends Component {
 
     renderAuthorsList = (authors) => {
         return authors.map(author => (
-                <div
+                <Link
                     key={author.id}
-                    className={'preview'}
+                    className={'author'}
+                    to={`'/authors/${author.id}`}
                 >
-                    <p className={'title'}>{author.name}</p>
-                </div>
+                    {author.name}
+                </Link>
             )
         );
     };

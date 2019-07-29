@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
 import Comments from "../../../components/homePage/rightColumn/Comments";
 
 import {
@@ -27,7 +28,16 @@ class CommentsContainer extends Component {
                     key={comment.id}
                     className={'comment-small'}
                 >
-                    <p className={'text'}>{comment.text}</p>
+                    <p className={'text'}>
+                        <Link
+                            className={'author'}
+                            to={`/author/${comment.author.id}`}
+                        >
+                            {comment.author.name}
+                        </Link>
+                        -
+                        {comment.body}
+                    </p>
                 </div>
             )
         );
@@ -35,7 +45,7 @@ class CommentsContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    lastComments: state.homePageData.topComments,
+    lastComments: state.homePageData.lastComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -10,7 +10,10 @@ class CommentsController extends Controller
 {
     public function last(Request $request)
     {
-        $comments = Comment::orderBy('id', 'desc')->take(5)->get();
+        $comments = Comment::orderBy('id', 'desc')
+            ->with('author')
+            ->take(5)
+            ->get();
 
         return response(['comments' => $comments], 200);
     }

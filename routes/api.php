@@ -26,4 +26,7 @@ Route::group(['prefix' => 'get/'], function () {
         Route::get('comments', 'api\CommentsController@last');
         Route::get('articles', 'api\ArticlesController@top');
     });
+
+    Route::get('author/{id}', 'api\UsersController@get');
+    Route::get('article/{id}', 'api\ArticlesController@get');
 });

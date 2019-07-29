@@ -1,9 +1,9 @@
 import React, {memo, lazy} from 'react';
 
-const LeftColumnContainer = lazy(() => import("../../containers/homePage/leftColumn/LeftColumnContainer"));
-const ArticlesContainer = lazy(() => import("../../containers/homePage/rightColumn/ArticlesContainer"));
-const AuthorsContainer = lazy(() => import("../../containers/homePage/rightColumn/AuthorsContainer"));
-const CommentsContainer = lazy(() => import("../../containers/homePage/rightColumn/CommentsContainer"));
+import LeftColumnContainer from "../../containers/homePage/leftColumn/LeftColumnContainer";
+import ArticlesContainer from "../../containers/homePage/rightColumn/ArticlesContainer";
+import AuthorsContainer from "../../containers/homePage/rightColumn/AuthorsContainer";
+import CommentsContainer from "../../containers/homePage/rightColumn/CommentsContainer";
 
 const HomePage = memo(() => {
     return (

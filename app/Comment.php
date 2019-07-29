@@ -10,12 +10,14 @@ class Comment extends Model
         'body'
     ];
 
+    protected $with = ['author'];
+
     public function article()
     {
         return $this->belongsTo(Article::class);
     }
 
-    public function authors()
+    public function author()
     {
         return $this->belongsTo(User::class);
     }

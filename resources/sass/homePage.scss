@@ -4,5 +4,66 @@
     justify-content: space-around;
     align-items: center;
 
+    .column {
+        text-align: center;
 
+        .articles, .comments, .authors {
+            .section-title {
+                font-weight: 500;
+                font-size: 30px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .articles {
+            .article-small {
+                display: block;
+                width: 600px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                color: #4dc0b5;
+
+                .author {
+                    color: #3490dc;
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+
+        .authors {
+            display: flex;
+            flex-direction: column;
+
+            .author {
+                display: block;
+                min-width: 300px;
+                padding: 10px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                margin: 10px 0;
+                color: #3490dc;
+            }
+        }
+
+        .comments {
+            display: flex;
+            flex-direction: column;
+
+            .comment-small {
+                display: block;
+                min-width: 300px;
+                padding: 10px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                margin: 10px 0;
+
+                .author {
+                    color: #3490dc;
+                }
+            }
+        }
+    }
 }

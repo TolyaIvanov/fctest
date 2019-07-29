@@ -26087,7 +26087,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31436,7 +31436,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var HomePage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
+});
+var ArticlePage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./containers/article/ArticleContainer */ "./resources/js/containers/article/ArticleContainer.js"));
+});
+var AuthorPage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./containers/author/AuthorContainer */ "./resources/js/containers/author/AuthorContainer.js"));
 });
 
 var Routes =
@@ -31457,6 +31463,12 @@ function (_Component) {
         exact: true,
         path: '/',
         component: HomePage
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+        path: '/article/:id',
+        component: ArticlePage
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+        path: '/author/:id',
+        component: AuthorPage
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
         component: _Error__WEBPACK_IMPORTED_MODULE_2__["default"]
       }));
@@ -31516,7 +31528,7 @@ var Header = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function (props)
 /*!****************************************************!*\
   !*** ./resources/js/constants/defaultConstants.js ***!
   \****************************************************/
-/*! exports provided: BASE_PATH, GET_TOP_ARTICLES, GET_TOP_AUTHORS, GET_TOP_COMMENTS */
+/*! exports provided: BASE_PATH, GET_TOP_ARTICLES, GET_TOP_AUTHORS, GET_TOP_COMMENTS, GET_ARTICLE, GET_AUTHOR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31525,13 +31537,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_ARTICLES", function() { return GET_TOP_ARTICLES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_AUTHORS", function() { return GET_TOP_AUTHORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_COMMENTS", function() { return GET_TOP_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ARTICLE", function() { return GET_ARTICLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_AUTHOR", function() { return GET_AUTHOR; });
 //base sittings
 var BASE_PATH = 'http://localhost:8000/api/'; // -- homePage --
 // get main info
 
 var GET_TOP_ARTICLES = 'GET_TOP_ARTICLES';
 var GET_TOP_AUTHORS = 'GET_TOP_AUTHORS';
-var GET_TOP_COMMENTS = 'GET_TOP_COMMENTS';
+var GET_TOP_COMMENTS = 'GET_TOP_COMMENTS'; //article
+
+var GET_ARTICLE = 'GET_ARTICLE'; //author
+
+var GET_AUTHOR = 'GET_AUTHOR';
 
 /***/ }),
 
@@ -31633,6 +31651,84 @@ history.push = function (pathname) {
 
 /***/ }),
 
+/***/ "./resources/js/reducers/article/articleData.js":
+/*!******************************************************!*\
+  !*** ./resources/js/reducers/article/articleData.js ***!
+  \******************************************************/
+/*! exports provided: articleData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleData", function() { return articleData; });
+/* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {};
+var articleData = function articleData() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      data = _ref.data;
+
+  switch (type) {
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_ARTICLE"]:
+      return _objectSpread({}, state, {
+        data: data
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/reducers/author/authorData.js":
+/*!****************************************************!*\
+  !*** ./resources/js/reducers/author/authorData.js ***!
+  \****************************************************/
+/*! exports provided: authorData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorData", function() { return authorData; });
+/* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {};
+var authorData = function authorData() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      data = _ref.data;
+
+  switch (type) {
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_AUTHOR"]:
+      return _objectSpread({}, state, {
+        data: data
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/reducers/homePage/dataRequest.js":
 /*!*******************************************************!*\
   !*** ./resources/js/reducers/homePage/dataRequest.js ***!
@@ -31644,10 +31740,16 @@ history.push = function (pathname) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataRequest", function() { return dataRequest; });
 /* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var initialState = {
   topAuthors: [],
-  topComments: [],
+  lastComments: [],
   topArticles: []
 };
 var dataRequest = function dataRequest() {
@@ -31659,19 +31761,19 @@ var dataRequest = function dataRequest() {
 
   switch (type) {
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_AUTHORS"]:
-      return {
+      return _objectSpread({}, state, {
         topAuthors: data
-      };
+      });
 
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_COMMENTS"]:
-      return {
+      return _objectSpread({}, state, {
         lastComments: data
-      };
+      });
 
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_ARTICLES"]:
-      return {
+      return _objectSpread({}, state, {
         topArticles: data
-      };
+      });
 
     default:
       return state;
@@ -31691,10 +31793,16 @@ var dataRequest = function dataRequest() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homePage/dataRequest */ "./resources/js/reducers/homePage/dataRequest.js");
+/* harmony import */ var _article_articleData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./article/articleData */ "./resources/js/reducers/article/articleData.js");
+/* harmony import */ var _author_authorData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./author/authorData */ "./resources/js/reducers/author/authorData.js");
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  homePageData: _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__["dataRequest"]
+  homePageData: _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__["dataRequest"],
+  articleData: _article_articleData__WEBPACK_IMPORTED_MODULE_2__["articleData"],
+  authorData: _author_authorData__WEBPACK_IMPORTED_MODULE_3__["authorData"]
 }));
 
 /***/ }),
