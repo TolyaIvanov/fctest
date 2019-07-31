@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $fillable = [
-        'title', 'body',
+        'title', 'body', 'article_id',
     ];
-
-    protected $with = ['comments'];
 
     public function author()
     {
@@ -19,6 +17,6 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'author_id');
+        return $this->hasMany(Comment::class, 'article_id');
     }
 }

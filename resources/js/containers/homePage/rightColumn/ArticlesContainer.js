@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import Articles from "../../../components/homePage/rightColumn/Articles";
 
 import {
     requestTopArticles
-} from "../../../actions/homePahe/dataRequest";
+} from "../../../actions/homePage/dataRequest";
 
 class ArticlesContainer extends Component {
     componentDidMount() {
@@ -24,14 +24,20 @@ class ArticlesContainer extends Component {
 
     renderArticleList = (articles) => {
         return articles.map(article => (
-                <Link
-                    to={`/article/${article.id}`}
+                <div
                     key={article.id}
-                    className={'article-small'}
+                    className={'article-wrapper'}
                 >
-                    <p className={'title'}>{article.title} - <Link className={'author'} to={`/author/${article.author.id}`}>{article.author.name}({article.author.age} years)</Link></p>
-                    <p className={'text'}>{article.body.split(' ').slice(0, 10).join(' ')}...</p>
-                </Link>
+                    <Link className={'author'}
+                          to={`/author/${article.author.id}`}>{article.author.name}({article.author.age} years)</Link>
+                    <Link
+                        to={`/article/${article.id}`}
+                        className={'article-small'}
+                    >
+                        <p className={'title'}>title - {article.title}</p>
+                        <p className={'text'}>{article.body.split(' ').slice(0, 10).join(' ')}...</p>
+                    </Link>
+                </div>
             )
         );
     };

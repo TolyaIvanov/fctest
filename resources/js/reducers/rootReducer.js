@@ -9,11 +9,21 @@ import {
 } from "./article/articleData";
 
 import {
+    articlePage
+} from "./author/articlePage";
+
+import {
+    commentPage
+} from "./article/commentPage";
+
+import {
     authorData
 } from "./author/authorData";
 
 export default combineReducers({
     homePageData: dataRequest,
     articleData,
-    authorData
+    authorData,
+    commentPage,
+    articlePage
 });

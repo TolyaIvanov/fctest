@@ -22,12 +22,27 @@ class ArticlesController extends Controller
 
     public function get(Request $request, $id)
     {
-        $article = Article::find($id);
+        $article = Article::with('author')
+            ->with('comments')
+            ->find($id);
 
         if ($article) {
             return response($article, 200);
         } else {
             return response('error', 422);
         }
+    }
+
+    public function last(Request $request)
+    {
+        $part = $request->load_param;
+
+        $articles = Article::orderBy('id', 'desc')
+            ->with('author')
+            ->skip($part * 12)
+            ->take(12)
+            ->get();
+
+        return response($articles, 200);
     }
 }

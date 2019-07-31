@@ -2,14 +2,18 @@ import {
     GET_AUTHOR
 } from "../../constants/defaultConstants";
 
-const initialState = {};
+const initialState = {
+    age: '',
+    name: '',
+    articles: []
+};
 
 export const authorData = (state = initialState, {type, data}) => {
     switch (type) {
         case GET_AUTHOR:
             return {
                 ...state,
-                data,
+                ...data,
             };
         default :
             return state;

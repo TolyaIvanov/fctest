@@ -9,8 +9,8 @@ import {
 } from "../../constants/defaultConstants";
 
 export const getArticle = (id) => dispatch => {
-    axios.get(`${BASE_PATH}get/article/${id}`)
-        .then(res => dispatch(articleData(res.data.article)))
+    axios.get(`${BASE_PATH}article/${id}`)
+        .then(res => dispatch(articleData(res.data)))
         .catch(err => console.log(err))
 };
 

@@ -2,10 +2,19 @@
     padding: 80px 0 0 0;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
 
     .column {
         text-align: center;
+        max-width: 600px;
+
+        .article-wrapper {
+            margin: 20px 0;
+
+            .author {
+                margin-bottom: 10px;
+            }
+        }
 
         .articles, .comments, .authors {
             .section-title {
@@ -22,6 +31,7 @@
                 border: 1px solid #333;
                 border-radius: 6px;
                 color: #4dc0b5;
+                margin-top: 8px;
 
                 .author {
                     color: #3490dc;
@@ -59,10 +69,47 @@
                 border: 1px solid #333;
                 border-radius: 6px;
                 margin: 10px 0;
+            }
 
-                .author {
-                    color: #3490dc;
-                }
+            .author {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    .left-column{
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .ps-text {
+            font-size: 14px;
+        }
+
+        .last-articles {
+
+            .post {
+                border: 1px solid #333;
+                border-radius: 6px;
+                padding: 10px;
+                box-sizing: border-box;
+                margin: 15px 0;
+            }
+        }
+
+        .button-wrapper {
+            margin-bottom: 35px;
+
+            .load-button {
+                width: 280px;
+                height: 38px;
+                border: none;
+                background-color: #9fc4eb;
+                color: #6574cd;
+                border-radius: 6px;
+                cursor: pointer;
             }
         }
     }

@@ -1,16 +1,19 @@
 import {
     GET_TOP_ARTICLES,
     GET_TOP_COMMENTS,
-    GET_TOP_AUTHORS
+    GET_TOP_AUTHORS,
+    GET_LAST_POSTS
 } from "../../constants/defaultConstants";
 
 const initialState = {
     topAuthors: [],
     lastComments: [],
-    topArticles: []
+    topArticles: [],
+    posts: [],
+    load_param: 0
 };
 
-export const dataRequest = (state = initialState, {type, data}) => {
+export const dataRequest = (state = initialState, {type, data, load_param}) => {
     switch (type) {
         case GET_TOP_AUTHORS:
             return {
@@ -26,6 +29,12 @@ export const dataRequest = (state = initialState, {type, data}) => {
             return {
                 ...state,
                 topArticles: data
+            };
+        case GET_LAST_POSTS:
+            return {
+                ...state,
+                posts: state.posts.concat(data),
+                load_param,
             };
         default:
             return state;

@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
 //            $user->articles()->saveMany(factory(App\Article::class, 1)->make());
 //            $user->comments()->saveMany(factory(App\Comment::class, 2)->make());
 //        });
-        factory(App\User::class, 1000)->create();
-        factory(App\Article::class, 100)->create();
-        factory(App\Comment::class, 1500)->create();
+        factory(App\User::class, 500)->create();
+        factory(App\Article::class, 50)->create();
+        factory(App\Comment::class, 750)->create();
 
 //        for ($i = 0; $i < 10; $i++) {
 //            factory(App\User::class, 10)->create()->each(function ($user) use ($i) {

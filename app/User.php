@@ -12,8 +12,6 @@ class User extends Model
 
     public $timestamps = false;
 
-    protected $with = ['articles'];
-
     public function articles()
     {
         return $this->hasMany(Article::class, 'author_id');

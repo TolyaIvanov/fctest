@@ -31313,7 +31313,7 @@ __webpack_require__.r(__webpack_exports__);
 var Error = function Error() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: 'Error'
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "powel nahyj dalbaeb"));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "ne tyda"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Error);
@@ -31436,13 +31436,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var HomePage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./components/homePage/HomePage */ "./resources/js/components/homePage/HomePage.js"));
 });
 var ArticlePage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./containers/article/ArticleContainer */ "./resources/js/containers/article/ArticleContainer.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./containers/article/ArticleContainer */ "./resources/js/containers/article/ArticleContainer.js"));
 });
 var AuthorPage = Object(react__WEBPACK_IMPORTED_MODULE_0__["lazy"])(function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ./containers/author/AuthorContainer */ "./resources/js/containers/author/AuthorContainer.js"));
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./containers/author/AuthorContainer */ "./resources/js/containers/author/AuthorContainer.js"));
 });
 
 var Routes =
@@ -31528,7 +31528,7 @@ var Header = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function (props)
 /*!****************************************************!*\
   !*** ./resources/js/constants/defaultConstants.js ***!
   \****************************************************/
-/*! exports provided: BASE_PATH, GET_TOP_ARTICLES, GET_TOP_AUTHORS, GET_TOP_COMMENTS, GET_ARTICLE, GET_AUTHOR */
+/*! exports provided: BASE_PATH, GET_TOP_ARTICLES, GET_TOP_AUTHORS, GET_TOP_COMMENTS, GET_LAST_POSTS, GET_ARTICLE, PUSH_COMMENT, CHANGE_COMMENT_PAGE, GET_AUTHOR, CHANGE_ARTICLE_PAGE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31537,19 +31537,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_ARTICLES", function() { return GET_TOP_ARTICLES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_AUTHORS", function() { return GET_TOP_AUTHORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_TOP_COMMENTS", function() { return GET_TOP_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_LAST_POSTS", function() { return GET_LAST_POSTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ARTICLE", function() { return GET_ARTICLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PUSH_COMMENT", function() { return PUSH_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_COMMENT_PAGE", function() { return CHANGE_COMMENT_PAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_AUTHOR", function() { return GET_AUTHOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_ARTICLE_PAGE", function() { return CHANGE_ARTICLE_PAGE; });
 //base sittings
 var BASE_PATH = 'http://localhost:8000/api/'; // -- homePage --
 // get main info
 
 var GET_TOP_ARTICLES = 'GET_TOP_ARTICLES';
 var GET_TOP_AUTHORS = 'GET_TOP_AUTHORS';
-var GET_TOP_COMMENTS = 'GET_TOP_COMMENTS'; //article
+var GET_TOP_COMMENTS = 'GET_TOP_COMMENTS';
+var GET_LAST_POSTS = 'GET_LAST_POSTS'; //article
 
-var GET_ARTICLE = 'GET_ARTICLE'; //author
+var GET_ARTICLE = 'GET_ARTICLE';
+var PUSH_COMMENT = 'PUSH_COMMENT';
+var CHANGE_COMMENT_PAGE = 'CHANGE_COMMENT_PAGE'; //author
 
 var GET_AUTHOR = 'GET_AUTHOR';
+var CHANGE_ARTICLE_PAGE = 'CHANGE_ARTICLE_PAGE';
 
 /***/ }),
 
@@ -31669,7 +31677,18 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var initialState = {};
+var initialState = {
+  author: {
+    id: '',
+    age: '',
+    name: ''
+  },
+  id: '',
+  body: '',
+  title: '',
+  updated_at: '',
+  comments: []
+};
 var articleData = function articleData() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 
@@ -31679,8 +31698,93 @@ var articleData = function articleData() {
 
   switch (type) {
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_ARTICLE"]:
+      return _objectSpread({}, state, {}, data);
+
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["PUSH_COMMENT"]:
       return _objectSpread({}, state, {
-        data: data
+        comments: state.comments.concat(data)
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/reducers/article/commentPage.js":
+/*!******************************************************!*\
+  !*** ./resources/js/reducers/article/commentPage.js ***!
+  \******************************************************/
+/*! exports provided: commentPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "commentPage", function() { return commentPage; });
+/* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  page: 1
+};
+var commentPage = function commentPage() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      page = _ref.page;
+
+  switch (type) {
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["CHANGE_COMMENT_PAGE"]:
+      return _objectSpread({}, state, {
+        page: page
+      });
+
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/reducers/author/articlePage.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/reducers/author/articlePage.js ***!
+  \*****************************************************/
+/*! exports provided: articlePage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articlePage", function() { return articlePage; });
+/* harmony import */ var _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/defaultConstants */ "./resources/js/constants/defaultConstants.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  page: 1
+};
+var articlePage = function articlePage() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+
+  var _ref = arguments.length > 1 ? arguments[1] : undefined,
+      type = _ref.type,
+      page = _ref.page;
+
+  switch (type) {
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["CHANGE_ARTICLE_PAGE"]:
+      return _objectSpread({}, state, {
+        page: page
       });
 
     default:
@@ -31708,7 +31812,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var initialState = {};
+var initialState = {
+  age: '',
+  name: '',
+  articles: []
+};
 var authorData = function authorData() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 
@@ -31718,9 +31826,7 @@ var authorData = function authorData() {
 
   switch (type) {
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_AUTHOR"]:
-      return _objectSpread({}, state, {
-        data: data
-      });
+      return _objectSpread({}, state, {}, data);
 
     default:
       return state;
@@ -31750,14 +31856,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {
   topAuthors: [],
   lastComments: [],
-  topArticles: []
+  topArticles: [],
+  posts: [],
+  load_param: 0
 };
 var dataRequest = function dataRequest() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 
   var _ref = arguments.length > 1 ? arguments[1] : undefined,
       type = _ref.type,
-      data = _ref.data;
+      data = _ref.data,
+      load_param = _ref.load_param;
 
   switch (type) {
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_AUTHORS"]:
@@ -31773,6 +31882,12 @@ var dataRequest = function dataRequest() {
     case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_TOP_ARTICLES"]:
       return _objectSpread({}, state, {
         topArticles: data
+      });
+
+    case _constants_defaultConstants__WEBPACK_IMPORTED_MODULE_0__["GET_LAST_POSTS"]:
+      return _objectSpread({}, state, {
+        posts: state.posts.concat(data),
+        load_param: load_param
       });
 
     default:
@@ -31794,7 +31909,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homePage/dataRequest */ "./resources/js/reducers/homePage/dataRequest.js");
 /* harmony import */ var _article_articleData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./article/articleData */ "./resources/js/reducers/article/articleData.js");
-/* harmony import */ var _author_authorData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./author/authorData */ "./resources/js/reducers/author/authorData.js");
+/* harmony import */ var _author_articlePage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./author/articlePage */ "./resources/js/reducers/author/articlePage.js");
+/* harmony import */ var _article_commentPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./article/commentPage */ "./resources/js/reducers/article/commentPage.js");
+/* harmony import */ var _author_authorData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./author/authorData */ "./resources/js/reducers/author/authorData.js");
+
+
 
 
 
@@ -31802,7 +31921,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   homePageData: _homePage_dataRequest__WEBPACK_IMPORTED_MODULE_1__["dataRequest"],
   articleData: _article_articleData__WEBPACK_IMPORTED_MODULE_2__["articleData"],
-  authorData: _author_authorData__WEBPACK_IMPORTED_MODULE_3__["authorData"]
+  authorData: _author_authorData__WEBPACK_IMPORTED_MODULE_5__["authorData"],
+  commentPage: _article_commentPage__WEBPACK_IMPORTED_MODULE_4__["commentPage"],
+  articlePage: _author_articlePage__WEBPACK_IMPORTED_MODULE_3__["articlePage"]
 }));
 
 /***/ }),

@@ -13,20 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('author/{id}', 'api\UsersController@get');
+Route::get('article/{id}', 'api\ArticlesController@get');
+Route::post('comments/add', 'api\CommentsController@add');
+
 Route::group(['prefix' => 'get/'], function () {
-    Route::group(['prefix' => 'all/'], function () {
-        Route::get('users', 'api\UsersController@all');
-        Route::get('comments', 'api\CommentsController@all');
-        Route::get('articles', 'api\ArticlesController@all');
-
-    });
-
     Route::group(['prefix' => 'top/'], function () {
         Route::get('users', 'api\UsersController@top');
         Route::get('comments', 'api\CommentsController@last');
         Route::get('articles', 'api\ArticlesController@top');
     });
 
-    Route::get('author/{id}', 'api\UsersController@get');
-    Route::get('article/{id}', 'api\ArticlesController@get');
+    Route::get('articles', 'api\ArticlesController@last');
 });

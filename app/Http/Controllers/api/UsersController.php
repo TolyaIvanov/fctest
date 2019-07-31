@@ -10,8 +10,8 @@ class UsersController extends Controller
 {
     public function top(Request $request)
     {
-        $users = User::withCount('comments')
-            ->orderBy('comments_count', 'desc')
+        $users = User::withCount('articles')
+            ->orderBy('articles_count', 'desc')
             ->take(5)
             ->get();
 
@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function get(Request $request, $id)
     {
-        $author = User::find($id)   ;
+        $author = User::with('articles')->find($id);
 
         if ($author) {
             return response($author, 200);

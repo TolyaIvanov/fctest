@@ -5,7 +5,7 @@ import Comments from "../../../components/homePage/rightColumn/Comments";
 
 import {
     requestTopComments
-} from "../../../actions/homePahe/dataRequest";
+} from "../../../actions/homePage/dataRequest";
 
 class CommentsContainer extends Component {
     componentDidMount() {
@@ -35,8 +35,10 @@ class CommentsContainer extends Component {
                         >
                             {comment.author.name}
                         </Link>
-                        -
-                        {comment.body}
+                        :
+                        <Link to={`/article/${comment.article_id}`}>
+                            "{comment.body}"
+                        </Link>
                     </p>
                 </div>
             )

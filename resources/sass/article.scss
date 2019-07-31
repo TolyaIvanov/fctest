@@ -1,0 +1,91 @@
+.article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 75px;
+
+    .author {
+        margin: 25px 0;
+    }
+
+    .content {
+        text-align: center;
+        max-width: 700px;
+
+        .text {
+            margin-top: 15px;
+        }
+
+        .comments {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: column;
+
+            .comments-part {
+                display: none;
+                flex-direction: column;
+
+                .comment {
+                    background-color: #eee;
+                    border-radius: 6px;
+                    padding: 6px;
+                    box-sizing: border-box;
+
+                    &:not(:last-child) {
+                        margin-bottom: 15px;
+                    }
+
+                    .comment-author {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .date {
+                            font-size: 14px;
+                            color: #636b6f;
+                        }
+                    }
+                }
+
+                &.active {
+                    display: flex;
+                }
+            }
+        }
+
+        .add-comment {
+            display: flex;
+            margin: 50px 0;
+            justify-content: space-between;
+            align-items: center;
+
+            .comment-input, .send-comment {
+                outline: none;
+                border-radius: 6px;
+                font-size: 18px;
+            }
+
+            .comment-input {
+                width: 400px;
+                height: 32px;
+                border: 1px solid #333;
+                padding: 6px;
+            }
+
+            .send-comment {
+                width: 220px;
+                height: 32px;
+                border: none;
+                cursor: pointer;
+                background-color: #313030;
+                color: #fefefe;
+                transition: .3s ease;
+
+                &:hover {
+                    background-color: #fefefe;
+                    color: #313030;
+                }
+            }
+        }
+    }
+}

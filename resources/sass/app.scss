@@ -1,6 +1,8 @@
 // files
 @import "header";
 @import "homePage";
+@import "article";
+@import "author";
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Maven+Pro');
@@ -38,4 +40,34 @@ p {
 
 input, button {
     user-select: none;
+}
+
+.pages {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .page-number {
+        width: 32px;
+        height: 32px;
+        margin: 12px;
+        background-color: #eee;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+
+        &:hover {
+            background-color: #ccc;
+        }
+
+        &.active {
+            background-color: #fc5447;
+        }
+    }
 }

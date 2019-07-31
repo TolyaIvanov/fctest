@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'body'
+        'body','author_id', 'article_id'
     ];
 
-    protected $with = ['author'];
+    protected $with = 'author';
 
     public function article()
     {

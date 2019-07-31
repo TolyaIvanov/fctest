@@ -5,7 +5,7 @@ import Authors from "../../../components/homePage/rightColumn/Authors";
 
 import {
     requestTopAuthors
-} from "../../../actions/homePahe/dataRequest";
+} from "../../../actions/homePage/dataRequest";
 
 class AuthorsContainer extends Component {
     componentDidMount() {
@@ -27,9 +27,9 @@ class AuthorsContainer extends Component {
                 <Link
                     key={author.id}
                     className={'author'}
-                    to={`'/authors/${author.id}`}
+                    to={`/author/${author.id}`}
                 >
-                    {author.name}
+                    {author.name} ({author.articles_count} статей)
                 </Link>
             )
         );

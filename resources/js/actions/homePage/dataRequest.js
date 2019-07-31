@@ -3,12 +3,14 @@ import axios from 'axios'
 import {
     getTopArticles,
     getTopAuthors,
-    getTopComments
+    getTopComments,
+    getLastPosts
 } from "./actionCreator";
 
 import {
     BASE_PATH
 } from "../../constants/defaultConstants";
+import store from "../../store/store";
 
 export const requestTopArticles = () => dispatch => {
     axios.get(`${BASE_PATH}get/top/articles`)
@@ -25,5 +27,15 @@ export const requestTopAuthors = () => dispatch => {
 export const requestTopComments = () => dispatch => {
     axios.get(`${BASE_PATH}get/top/comments`)
         .then(res => dispatch(getTopComments(res.data.comments)))
+        .catch(err => console.log(err))
+};
+
+export const loadLastPosts = () => dispatch => {
+    let load_param = store.getState().homePageData.load_param;
+
+    axios.get(`${BASE_PATH}get/articles?load_param=${++load_param}`)
+        .then(res => {
+            dispatch(getLastPosts(res.data, ++load_param))
+        })
         .catch(err => console.log(err))
 };
