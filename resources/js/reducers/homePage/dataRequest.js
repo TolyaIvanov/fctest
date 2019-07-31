@@ -33,8 +33,8 @@ export const dataRequest = (state = initialState, {type, data, load_param}) => {
         case GET_LAST_POSTS:
             return {
                 ...state,
-                posts: state.posts.concat(data),
-                load_param,
+                posts: [...new Set([...data, ...state.posts])],
+                load_param: load_param++,
             };
         default:
             return state;

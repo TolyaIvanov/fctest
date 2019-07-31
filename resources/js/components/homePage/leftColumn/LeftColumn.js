@@ -11,10 +11,13 @@ const LeftColumn = memo((props) => {
             </div>
             <div className="button-wrapper">
                 <input
-                    onClick={event => props.load()}
+                    onClick={event => {
+                        let param = props.load_param + 1;
+                        props.load(param)
+                    }}
                     className={'load-button'}
                     type="button"
-                    value={'Загрузить еще...'}
+                    value={'Загрузить...'}
                 />
             </div>
         </div>

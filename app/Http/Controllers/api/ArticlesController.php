@@ -39,8 +39,8 @@ class ArticlesController extends Controller
 
         $articles = Article::orderBy('id', 'desc')
             ->with('author')
-            ->skip($part * 12)
-            ->take(12)
+            ->skip($part * 6)
+            ->take(6)
             ->get();
 
         return response($articles, 200);

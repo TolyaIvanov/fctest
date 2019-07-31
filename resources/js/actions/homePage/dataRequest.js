@@ -30,12 +30,10 @@ export const requestTopComments = () => dispatch => {
         .catch(err => console.log(err))
 };
 
-export const loadLastPosts = () => dispatch => {
-    let load_param = store.getState().homePageData.load_param;
-
-    axios.get(`${BASE_PATH}get/articles?load_param=${++load_param}`)
+export const loadLastPosts = (load_param) => dispatch => {
+    axios.get(`${BASE_PATH}get/articles?load_param=${load_param}`)
         .then(res => {
-            dispatch(getLastPosts(res.data, ++load_param))
+            dispatch(getLastPosts(res.data, load_param))
         })
         .catch(err => console.log(err))
 };
